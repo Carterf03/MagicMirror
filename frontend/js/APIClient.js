@@ -2,15 +2,12 @@ import HTTPClient from './HTTPClient.js';
 
 const BASE_API_PATH = './api';
 
-
-// Example
-const getCurrentUser = () => {
-  return HTTPClient.get(`${BASE_API_PATH}/users/current`);
+// Calls HTTPClient to get news stories based off a category
+const getNewsStories = (category) => {
+    return HTTPClient.get(`${BASE_API_PATH}/newStories`);
 };
 
 
-
-
 export default {
-  getCurrentUser
+    getNewsStories
 };

@@ -6,5 +6,5 @@ newsbutton.addEventListener('click', e => {
         // TODO
     }).catch(err => {
         console.log(err);
-    })
+    });
 });

@@ -3,6 +3,7 @@ from flask import jsonify
 import requests
 from dotenv import load_dotenv
 import os
+import requests
 
 load_dotenv() 
 
@@ -57,4 +58,36 @@ def new_stories(storyType):
     else:
         return jsonify({"error" : "API request failed"}),response.status_code
 
+# Raleigh Lat and Lon
+LATITUDE = 35.77
+LONGITUDE = -78.63
 
+USER_AGENT = { 'User-Agent': ('MagicMirror Weather App', 'richardgatherton@gmail.com') }
+
+
+# TODO: Add in lat long coordinates as input for setup eventually
+@app.route("/weather")
+def get_weather():
+    coordinates = f"https://api.weather.gov/points/{LATITUDE}{LONGITUDE}"
+
+    coordinates_response = requests.get(coordinates, headers=USER_AGENT)
+    coordinates_response.raise_for_status()
+
+    forecast_url = coordinates.json()['properties']['forecast']
+
+    forecast_response = requests.get(forecast_url, headers=USER_AGENT)
+    forecast_response.raise_for_status()
+
+    forecast_data = forecast_response.json()
+    periods = forecast_data['properties']['periods']
+    weather_forecast = [
+            {
+                "period": p.get("name"),
+                "temp": f"{p.get('temperature')} {p.get('temperatureUnit')}",
+                "wind": f"{p.get('windSpeed')} from the {p.get('windDirection')}",
+                "forecast": p.get("shortForecast")
+            } 
+            for p in periods[:5]
+        ]
+        
+    return jsonify(weather_forecast)

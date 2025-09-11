@@ -1,5 +1,5 @@
-from flask import Flask
-from flask import jsonify
+from flask import Flask, jsonify
+from flask_cors import CORS
 import requests
 from dotenv import load_dotenv
 import os
@@ -9,6 +9,7 @@ from zoneinfo import ZoneInfo
 load_dotenv() 
 
 app = Flask(__name__)
+CORS(app)
 
 # Getting the NYT API Key
 def get_nyt_api_key():
@@ -47,7 +48,7 @@ def get_nyt_api_key():
 # upshot
 # us
 # world
-@app.route("/newStories")
+@app.route("/newStories/<storyType>", methods=['GET'])
 def new_stories(storyType):
     nyt_key = os.getenv("NYT_API")
     url = f"https://api.nytimes.com/svc/topstories/v2/{storyType}.json?api-key={nyt_key}"
@@ -111,3 +112,7 @@ def get_current_time():
         }
     
     return jsonify(time_data)
+  
+  
+if __name__ == '__main__':
+    app.run(debug=True)

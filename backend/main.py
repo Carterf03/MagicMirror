@@ -4,7 +4,8 @@ import requests
 from dotenv import load_dotenv
 import os
 import requests
-
+from datetime import datetime
+from zoneinfo import ZoneInfo
 load_dotenv() 
 
 app = Flask(__name__)
@@ -66,6 +67,7 @@ USER_AGENT = { 'User-Agent': ('MagicMirror Weather App', 'richardgatherton@gmail
 
 
 # TODO: Add in lat long coordinates as input for setup eventually
+# Returns the weather in raleigh
 @app.route("/weather")
 def get_weather():
     coordinates = f"https://api.weather.gov/points/{LATITUDE}{LONGITUDE}"
@@ -91,3 +93,21 @@ def get_weather():
         ]
         
     return jsonify(weather_forecast)
+
+# Returns the current time 
+@app.route("/time")
+def get_current_time():
+    eastern_time = ZoneInfo("America/New_York")
+
+    current_time = datetime.now(eastern_time)
+
+    time_data = {
+            "date": current_time.strftime("%Y-%m-%d"),
+            "day_of_week": current_time.strftime("%A"),
+            "time_24h": current_time.strftime("%H:%M:%S"),
+            "time_12h": current_time.strftime("%I:%M:%S %p"),
+            "timezone": current_time.strftime("%Z"),
+            "iso_format": current_time.isoformat() 
+        }
+    
+    return jsonify(time_data)

@@ -21,6 +21,7 @@ pip install python-dotenv
 pip install requests
 pip install flask
 pip install flask-cors
+pip install tzdata
 ```
 ## Initialize the API Key
 Create an account at https://developer.nytimes.com/.

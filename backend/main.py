@@ -64,19 +64,20 @@ def new_stories(storyType):
 LATITUDE = 35.77
 LONGITUDE = -78.63
 
-USER_AGENT = { 'User-Agent': ('MagicMirror Weather App', 'richardgatherton@gmail.com') }
+# USER_AGENT = { 'User-Agent': ('MagicMirror Weather App', 'richardgatherton@gmail.com') }
+USER_AGENT = { 'User-Agent': 'MagicMirror Weather App (richardgatherton@gmail.com)' }
 
 
 # TODO: Add in lat long coordinates as input for setup eventually
 # Returns the weather in raleigh
 @app.route("/weather")
 def get_weather():
-    coordinates = f"https://api.weather.gov/points/{LATITUDE}{LONGITUDE}"
+    coordinates_url = f"https://api.weather.gov/points/{LATITUDE},{LONGITUDE}"
 
-    coordinates_response = requests.get(coordinates, headers=USER_AGENT)
+    coordinates_response = requests.get(coordinates_url, headers=USER_AGENT)
     coordinates_response.raise_for_status()
 
-    forecast_url = coordinates.json()['properties']['forecast']
+    forecast_url = coordinates_response.json()['properties']['forecast']
 
     forecast_response = requests.get(forecast_url, headers=USER_AGENT)
     forecast_response.raise_for_status()
@@ -90,8 +91,11 @@ def get_weather():
                 "wind": f"{p.get('windSpeed')} from the {p.get('windDirection')}",
                 "forecast": p.get("shortForecast")
             } 
-            for p in periods[:5]
-        ]
+        #     for p in periods[:14]   # 7 days × 2 periods (day/night)
+        # ]
+            for p in periods if "Night" not in p.get("name")
+        ][:7]  # Just the next 7 daytime periods
+
         
     return jsonify(weather_forecast)
 

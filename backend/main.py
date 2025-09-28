@@ -94,6 +94,7 @@ def get_weather():
         #     for p in periods[:14]   # 7 days × 2 periods (day/night)
         # ]
             for p in periods if "Night" not in p.get("name")
+                            and "Tonight" not in p.get("name")
         ][:7]  # Just the next 7 daytime periods
 
         

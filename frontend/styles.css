@@ -18,7 +18,25 @@ footer {
 
 
 
+/* Weather CSS */
+section#weather > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 2rem;
+    height: 25px;
+}
 
+section#weather > div.first-day {
+    height: 50px;
+    padding-bottom: 10px;
+}
+
+section#weather > div > img {
+    max-width: 50px;
+    object-fit: contain;
+}
 
 
 

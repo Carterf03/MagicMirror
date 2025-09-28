@@ -40,8 +40,6 @@ const datetimeSection = document.querySelector('section#datetime');
 
 
 
-
-
 // TESTING: Local Clock
 function updateLocalClock() {
     const now = new Date();

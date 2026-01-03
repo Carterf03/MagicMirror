@@ -17,9 +17,15 @@ const getNewsStories = (category) => {
     return HTTPClient.get(`${BASE_API_PATH}/newStories/${category}`);
 };
 
+// Calls HTTPClient to get the users google calendar
+const getCalendar = () => {
+    return HTTPClient.get(`${BASE_API_PATH}/calendar`);
+};
+
 
 export default {
     getTime,
     getWeather,
-    getNewsStories
+    getNewsStories,
+    getCalendar
 };

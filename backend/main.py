@@ -1,11 +1,13 @@
-from flask import Flask, jsonify
-from flask_cors import CORS
-import requests
-from dotenv import load_dotenv
 import os
 import requests
-from datetime import datetime
+
+from flask import Flask, jsonify
+from flask_cors import CORS
+from dotenv import load_dotenv
+import datetime
 from zoneinfo import ZoneInfo
+from calendar_module import get_calendar_service
+
 load_dotenv() 
 
 app = Flask(__name__)
@@ -117,6 +119,32 @@ def get_current_time():
         }
     
     return jsonify(time_data)
+
+
+# Returns the users calendar
+@app.route("/calendar")
+def get_calendar():
+    service = get_calendar_service()
+
+    now = datetime.datetime.now(tz=datetime.timezone.utc).isoformat()
+    events_result = service.events().list(
+        calendarId="primary",
+        timeMin=now,
+        maxResults=5,
+        singleEvents=True,
+        orderBy="startTime",
+    ).execute()
+
+    events = events_result.get("items", [])
+
+    formatted = []
+    for e in events:
+        formatted.append({
+            "start": e["start"].get("dateTime", e["start"].get("date")),
+            "summary": e.get("summary", "No title")
+        })
+
+    return jsonify(formatted)
   
   
 if __name__ == '__main__':

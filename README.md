@@ -10,7 +10,6 @@ npm install express
 ```
 
 ### Backend
-
 ### Setting up Python
 Dowload Python 3.11, then select interpreter in VS Code.
 
@@ -27,3 +26,19 @@ pip install tzdata
 Create an account at https://developer.nytimes.com/.
 Follow site instructions to copy the Top Stories API key.
 Paste API key in .env file. 
+
+
+## Start
+### Backend (Terminal 1)
+Activate the virtual environment and run main.py:
+```
+source .venv/bin/activate
+python backend/main.py
+```
+
+### Frontend (Terminal 2)
+Navigate to the frontend folder and start npm:
+```
+cd frontend
+npm start
+```

@@ -19,7 +19,6 @@ import api from './APIClient.js';
 const calendarSection = document.querySelector('section#calendar');
 
 api.getCalendar().then(calendar => {
-    console.log(calendar);
     calendar.forEach(event => {
         const div = document.createElement('div');
         const dateElement = document.createElement('h3');

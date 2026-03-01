@@ -1,3 +1,6 @@
 node_modules/
 .env
-.json
+
+# Google Calendar json files
+credentials.json
+token.json

@@ -122,23 +122,52 @@ def get_current_time():
 
 
 # Returns the users calendar
+# Currently gets the next 5 events of your personnel calendar
 @app.route("/calendar")
 def get_calendar():
     service = get_calendar_service()
 
     now = datetime.datetime.now(tz=datetime.timezone.utc).isoformat()
-    events_result = service.events().list(
+
+    # Primary Calendar events
+    primary_calendar = service.events().list(
         calendarId="primary",
         timeMin=now,
         maxResults=5,
         singleEvents=True,
         orderBy="startTime",
-    ).execute()
+    ).execute().get("items", [])
 
-    events = events_result.get("items", [])
+    # Holiday Calendar events
+    holiday_calendar = service.events().list(
+        calendarId="en.usa#holiday@group.v.calendar.google.com",
+        timeMin=now,
+        maxResults=5,
+        singleEvents=True,
+        orderBy="startTime",
+    ).execute().get("items", [])
 
+    calendars = primary_calendar + holiday_calendar
+ 
+    def parse_event_date(event):
+        start = event["start"]
+
+        if "dateTime" in start:
+            dt = datetime.datetime.fromisoformat(
+                start["dateTime"].replace("Z", "+00:00")
+            )
+        else:
+            dt = datetime.datetime.fromisoformat(start["date"])
+            dt = dt.replace(tzinfo=datetime.timezone.utc)
+
+        return dt
+
+    # Sort combined events
+    calendars.sort(key=parse_event_date)
+
+    # Format for frontend
     formatted = []
-    for e in events:
+    for e in calendars:
         formatted.append({
             "start": e["start"].get("dateTime", e["start"].get("date")),
             "summary": e.get("summary", "No title")

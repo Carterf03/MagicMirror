@@ -40,7 +40,7 @@ const datetimeSection = document.querySelector('section#datetime');
 
 
 
-// TESTING: Local Clock
+// Local Clock
 function updateLocalClock() {
     const now = new Date();
     const weekday = now.toLocaleDateString('en-US', {

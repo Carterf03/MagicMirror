@@ -3,4 +3,5 @@ node_modules/
 
 # Google Calendar json files
 credentials.json
+tokens/
 token.json

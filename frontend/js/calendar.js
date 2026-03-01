@@ -39,9 +39,9 @@ api.getCalendar().then(calendar => {
             const dateDiv = document.createElement('div');
             const timeElement = document.createElement('h4');
             
-            timeElement.textContent = start.toLocaleTimeString("en-GB", {
-                hour: "2-digit",
-                minute: "2-digit",
+            timeElement.textContent = start.toLocaleTimeString("en-US", {
+                hour: "numeric",
+                minute: "numeric",
                 hour12: true
             });
 

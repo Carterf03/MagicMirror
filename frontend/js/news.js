@@ -1,7 +1,7 @@
 import api from './APIClient.js';
 
 
-// TESTING
+// // TESTING
 // const newsbutton = document.querySelector('#newsbutton');
 // newsbutton.addEventListener('click', e => {
 //     api.getNewsStories("technology").then(stories => {

@@ -23,13 +23,13 @@ pip install flask-cors
 pip install tzdata
 ```
 ### Initialize the API Key
-Create an account at https://developer.nytimes.com/.
-Follow site instructions to copy the Top Stories API key.
+Create an account at https://developer.nytimes.com/.  
+Follow site instructions to copy the Top Stories API key.  
 Paste API key in .env file. 
 
 ### Google Calendar Connection
-Google Cloud Magic Mirror Project was created.
-Need to paste the credentials.json file in the backend/ folder.
+Google Cloud Magic Mirror Project was created.  
+Need to paste the credentials.json file in the backend/ folder.  
 
 
 ## Start

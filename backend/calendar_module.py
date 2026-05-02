@@ -11,8 +11,12 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def get_calendar_service():
     creds = None
-    token_path = os.path.join(BASE_DIR, "tokens", "token.json")
+    token_dir = os.path.join(BASE_DIR, "tokens")
+    token_path = os.path.join(token_dir, "token.json")
     creds_path = os.path.join(BASE_DIR, "credentials.json")
+
+    # Ensure tokens directory exists
+    os.makedirs(token_dir, exist_ok=True)
 
     # Load existing credentials
     if os.path.exists(token_path):

@@ -8,10 +8,10 @@ export DISPLAY=:0
 
 # --- Start Backend ---
 cd ~/MagicMirror
-source ~/MagicMirror/.venv/bin/activate/python backend/main.py &
+.venv/bin/activate/python backend/main.py &
 
 # --- Start Frontend ---
-cd /MagicMirror/frontend
+cd ~/MagicMirror/frontend
 npm start &
 
 # Wait a bit for servers to start

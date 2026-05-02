@@ -19,7 +19,8 @@ api.getWeather().then(weather => {
             const temp = document.createElement('h1');
 
             icon.src = `./icons/${getWeatherIcon(day.forecast)}`;
-            temp.textContent = day.temp;
+            const tempurature = day.temp.split(" ");
+            temp.textContent = `${tempurature[0]}° ${tempurature[1]}`;
 
             div.appendChild(icon);
             div.appendChild(temp);
@@ -30,7 +31,8 @@ api.getWeather().then(weather => {
             const temp = document.createElement('p');
             
             text.textContent = day.period;
-            temp.textContent = day.temp;
+            const tempurature = day.temp.split(" ");
+            temp.textContent = `${tempurature[0]}° ${tempurature[1]}`;
 
             div.appendChild(text);
             div.appendChild(temp);

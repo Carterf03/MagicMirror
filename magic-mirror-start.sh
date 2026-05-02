@@ -7,9 +7,8 @@ sleep 10
 export DISPLAY=:0
 
 # --- Start Backend ---
-cd /MagicMirror
-source .venv/bin/activate
-python backend/main.py &
+cd ~/MagicMirror
+source ~/MagicMirror/.venv/bin/activate/python backend/main.py &
 
 # --- Start Frontend ---
 cd /MagicMirror/frontend

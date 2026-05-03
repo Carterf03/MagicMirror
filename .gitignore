@@ -5,3 +5,4 @@ node_modules/
 credentials.json
 tokens/
 token.json
+magic-mirror-start.sh
